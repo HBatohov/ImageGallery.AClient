@@ -1,0 +1,15 @@
+<h2>Gallery Rooms</h2>
+
+            <div *ngFor="let room of rooms" class="d-flex bd-highlight">
+                <div class="p-2 flex-grow-1 bd-highlight">
+                    <a  class="list-group-item list-group-item-action" [ngClass]="{'active': selectedAlbumId == album.id}" (click)="listAlbumsClick($event, album.id)" 
+                            data-toggle="tooltip" title="{{ room.name }}  {{ room.description }}">
+                        {{ room.name }} 
+                    </a>
+                </div>
+
+                <div class="p-2 bd-highlight">                       
+                    <button class="btn btn-info">Edit</button>
+                    <button class="btn btn-danger">X</button>
+                </div> 
+            </div>

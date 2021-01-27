@@ -1,5 +1,5 @@
 export class Room{
     id:any;
-    title:string = '';
+    name:string = '';
     description:string = '';
 }
