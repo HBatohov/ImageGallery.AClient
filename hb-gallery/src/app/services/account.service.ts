@@ -5,29 +5,24 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { SharedService } from './shared.service';
-import { Room } from '../Models/room';
+import { RegisterUser } from '../Models/registeruser';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class RoomService {
+export class AccountService {
 
-  private roomsUrl = environment.apiUrl + "api/rooms";
-
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, DELETE' 
-  })};
+  private accountsUrl = environment.apiUrl + "api/accounts";
 
   constructor(private http: HttpClient,
               private sharedService: SharedService) { }
 
-  getRooms(): Observable<Room[]>{
-    let result = this.http.get<Room[]>(this.roomsUrl)
+  registrUser(user: RegisterUser): Observable<any> {
+    let result = this.http.post<any>(this.accountsUrl+'/register', user)
      .pipe(
-        tap(()=>console.info('Fetched Rooms')),
-        catchError(this.sharedService.handleError<Room[]>('getRooms',[]))
+        tap((id:string) => console.info(`Register User: completed. ID = ${id}`)),
+        catchError(this.sharedService.handleError<any>('registrUser'))
       );
     return result;
   }

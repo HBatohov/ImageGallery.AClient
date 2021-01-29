@@ -4,6 +4,7 @@ import { from } from 'rxjs';
 
 import { Room } from '../../models/room'; 
 import { RoomService } from '../../services/room.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-rooms',
@@ -13,9 +14,13 @@ import { RoomService } from '../../services/room.service';
 
 export class RoomsComponent implements OnInit {
 
+  userLoggedIn: boolean = false;
   rooms: Room[] = [];
 
-  constructor(private roomService: RoomService) { }
+  constructor(private roomService: RoomService,
+              private sharedService: SharedService) {
+    this.userLoggedIn = sharedService.isLogged;
+  }
 
   ngOnInit(): void {
     this.getRooms();
